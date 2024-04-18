@@ -5,7 +5,7 @@ import "./common.css";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="layout_container">
       <Header />
       <Main />
     </div>
