@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./common.css";
 import Movie from "./Movie";
 
 const MovieList = ({ movieData }) => {
-  console.log(movieData);
+  const [isOpenMovieList, setIsOpenMovieList] = useState(true);
+  const handleOnClick = () => {
+    setIsOpenMovieList(!isOpenMovieList);
+  };
   return (
     <div>
-      <div className="movieList_container">
-        <div className="cross">+</div>
-        <div>
-          {movieData.map((movie) => {
-            return <Movie movie={movie} key={movie.imdbID} />;
-          })}
+      <div className={isOpenMovieList ? "movieList_container" : ""}>
+        <div className="cross" onClick={handleOnClick}>
+          {isOpenMovieList ? "➖" : "➕"}
         </div>
+        {isOpenMovieList && (
+          <div>
+            {movieData.map((movie) => {
+              return <Movie movie={movie} key={movie.imdbID} />;
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -7,13 +7,13 @@
 .header_container{
   
     background-color: black;
-    color: wheat;
+    color: darkgray;
     display: flex;
     justify-content: space-around;
     font-size: xx-large;
     font-weight: 800;
     font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid green;
+    border: 2px solid green;
 
 }
 .layout_container{
@@ -33,7 +33,7 @@
 }
 
 .main_container{
-    background-color: darkgray;
+    background-color: black;
     border: 1px solid gray ;
     border-radius: 5px;
    
@@ -44,21 +44,24 @@
     margin: 10px;
     border: 1px solid red;
     border-radius: 5px;
+    background-color: black;
     /* width: 100px; */
 }
 
 .search_container >button{
     margin: 10px;
-    padding: 10px;
+    padding: 7px;
     cursor: pointer;
     border: 1px solid red;
     border-radius: 10px;
     font-size: large;
     font-weight: 500;
+    background-color: black;
+    color: white;
 }
 
 .movie_container{
-    border: 1px solid white ;
+   
     padding: 20px;
     margin: 10px;
     display: flex;
@@ -75,27 +78,29 @@
 }
 
 .movieList_container{
-    border: 1px solid black;
+    border: 5px solid violet;
     padding: 30px;
     margin: 10px;
+    border-radius: 8px;
+
 }
 
 .cross{
     display: inline;
     font-size: xx-large;
     padding: 5px;
-    border: 1px solid black;
-    border-radius: 50%;
-    font-weight: 700;
+    
+ 
+    font-weight: 900;
     cursor: pointer;
-    color: red;
+    color: green;
 
 }
 
 .watchmovie_container{
     display: flex;
     padding: 20px;
-    border: 1px solid black;
+    color: white;
     margin: 10px;
     
    
@@ -111,8 +116,21 @@
 .watchedmovie_container{
     padding: 30px;
     margin: 10px;
-    border: 1px solid black;
+    border: 5px solid violet;
+    border-radius: 8px;
    
 
 }
 
+.average >span{
+    padding: 3px;
+}
+
+
+.watchedData_container{
+    color: white;
+    padding: 5px;
+    font-size: x-large;
+    border: 2px solid blue;
+   
+}
