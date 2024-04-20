@@ -1,34 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import "./common.css";
 import MovieList from "./MovieList";
 import WatchedList from "./WatchedList";
 import SearchBar from "./SearchBar";
-
-const tempMovieData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt0133093",
-    Title: "The Matrix",
-    Year: "1999",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt6751668",
-    Title: "Parasite",
-    Year: "2019",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-  },
-];
+import { API_KEY } from "../utils/api";
+import Loader from "./Loader";
+import Error from "./ErrorMessage";
+import ErrorMessage from "./ErrorMessage";
 
 const tempWatchedData = [
   {
@@ -55,19 +35,54 @@ const tempWatchedData = [
 
 const Layout = () => {
   const [query, setQuery] = useState("");
+  const [movie, setMovie] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loader, setLoader] = useState(false);
 
-  const onSearchChange = (value) => {
+  useEffect(() => {
+    const movieData = async () => {
+      try {
+        setLoader(true);
+        setErrorMsg("");
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
+        );
+        if (!res.ok) {
+          throw new Error("Something went wrong");
+        }
+        const data = await res.json();
+        if (data.response === "False") {
+          throw new Error("Movie Not found");
+        }
+        setMovie(data.Search);
+      } catch (err) {
+        console.log(err.message);
+        setErrorMsg(err.message);
+      } finally {
+        setLoader(false);
+        setErrorMsg("");
+      }
+    };
+
+    movieData();
+  }, [query]);
+
+  const onSearch = (value) => {
     setQuery(value);
   };
-  console.log(query);
+
+  console.log(movie);
 
   return (
     <div className="layout_container">
-      <Header movieData={tempMovieData}>
-        <SearchBar query={query} onSearch={onSearchChange} />
+      <Header movieData={movie}>
+        <SearchBar query={query} onSearch={onSearch} />
       </Header>
       <Main>
-        <MovieList movieData={tempMovieData} />
+        {loader && <Loader />}
+
+        {!loader && !errorMsg && <MovieList movieData={movie} />}
+        {errorMsg && <ErrorMessage message={errorMsg} />}
         <WatchedList watchedMovie={tempWatchedData} />
       </Main>
     </div>

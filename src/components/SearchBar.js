@@ -15,7 +15,6 @@ const SearchBar = ({ query, onSearch }) => {
           value={query}
           onChange={handleOnChange}
         />
-        <button>Search</button>
       </div>
     </div>
   );

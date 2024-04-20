@@ -2,8 +2,9 @@ import React from "react";
 import "./common.css";
 
 const Movie = ({ movie }) => {
+  const handleOnClick = () => {};
   return (
-    <div className="movie_container">
+    <div className="movie_container" onClick={handleOnClick}>
       <div>
         <img
           src={movie.Poster}

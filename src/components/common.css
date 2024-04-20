@@ -45,7 +45,8 @@
     border: 1px solid red;
     border-radius: 5px;
     background-color: black;
-    /* width: 100px; */
+    color: whitesmoke;
+    width: 100%;
 }
 
 .search_container >button{

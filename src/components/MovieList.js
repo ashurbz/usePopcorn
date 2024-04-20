@@ -15,7 +15,7 @@ const MovieList = ({ movieData }) => {
         </div>
         {isOpenMovieList && (
           <div>
-            {movieData.map((movie) => {
+            {movieData?.map((movie) => {
               return <Movie movie={movie} key={movie.imdbID} />;
             })}
           </div>

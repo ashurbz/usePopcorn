@@ -6,7 +6,7 @@ const Header = ({ movieData, children }) => {
     <div className="header_container">
       <div className="logo">PopCorn</div>
       <div className="search_container"> {children} </div>
-      <div>Result Found {movieData.length}</div>
+      <div>Result Found {movieData?.length}</div>
     </div>
   );
 };
