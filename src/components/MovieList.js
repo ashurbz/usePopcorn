@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./common.css";
 import Movie from "./Movie";
 
-const MovieList = ({ movieData }) => {
+const MovieList = ({ movieData, onMovieClick }) => {
   const [isOpenMovieList, setIsOpenMovieList] = useState(true);
   const handleOnClick = () => {
     setIsOpenMovieList(!isOpenMovieList);
@@ -16,7 +16,13 @@ const MovieList = ({ movieData }) => {
         {isOpenMovieList && (
           <div>
             {movieData?.map((movie) => {
-              return <Movie movie={movie} key={movie.imdbID} />;
+              return (
+                <Movie
+                  movie={movie}
+                  key={movie.imdbID}
+                  onMovieClick={onMovieClick}
+                />
+              );
             })}
           </div>
         )}

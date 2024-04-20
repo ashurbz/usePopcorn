@@ -9,6 +9,7 @@ import { API_KEY } from "../utils/api";
 import Loader from "./Loader";
 import Error from "./ErrorMessage";
 import ErrorMessage from "./ErrorMessage";
+import MovieDetails from "./MovieDetails";
 
 const tempWatchedData = [
   {
@@ -38,6 +39,7 @@ const Layout = () => {
   const [movie, setMovie] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [loader, setLoader] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     const movieData = async () => {
@@ -67,6 +69,9 @@ const Layout = () => {
     movieData();
   }, [query]);
 
+  const onMovieClick = (id) => {
+    setSelectedId(id);
+  };
   const onSearch = (value) => {
     setQuery(value);
   };
@@ -81,9 +86,15 @@ const Layout = () => {
       <Main>
         {loader && <Loader />}
 
-        {!loader && !errorMsg && <MovieList movieData={movie} />}
+        {!loader && !errorMsg && (
+          <MovieList movieData={movie} onMovieClick={onMovieClick} />
+        )}
         {errorMsg && <ErrorMessage message={errorMsg} />}
-        <WatchedList watchedMovie={tempWatchedData} />
+        {selectedId ? (
+          <MovieDetails selectedId={selectedId} />
+        ) : (
+          <WatchedList watchedMovie={tempWatchedData} />
+        )}
       </Main>
     </div>
   );

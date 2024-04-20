@@ -1,8 +1,10 @@
 import React from "react";
 import "./common.css";
 
-const Movie = ({ movie }) => {
-  const handleOnClick = () => {};
+const Movie = ({ movie, onMovieClick }) => {
+  const handleOnClick = () => {
+    onMovieClick(movie.imdbID);
+  };
   return (
     <div className="movie_container" onClick={handleOnClick}>
       <div>
