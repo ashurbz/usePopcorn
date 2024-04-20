@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./common.css";
 
-const SearchBar = () => {
-  const [query, setQuery] = useState("");
-
+const SearchBar = ({ query, onSearch }) => {
   const handleOnChange = (e) => {
-    setQuery(e.target.value);
+    onSearch(e.target.value);
   };
 
-  console.log(query);
   return (
     <div>
       <div className="search_container">

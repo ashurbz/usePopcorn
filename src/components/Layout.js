@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import "./common.css";
 import MovieList from "./MovieList";
 import WatchedList from "./WatchedList";
+import SearchBar from "./SearchBar";
 
 const tempMovieData = [
   {
@@ -53,9 +54,18 @@ const tempWatchedData = [
 ];
 
 const Layout = () => {
+  const [query, setQuery] = useState("");
+
+  const onSearchChange = (value) => {
+    setQuery(value);
+  };
+  console.log(query);
+
   return (
     <div className="layout_container">
-      <Header movieData={tempMovieData} />
+      <Header movieData={tempMovieData}>
+        <SearchBar query={query} onSearch={onSearchChange} />
+      </Header>
       <Main>
         <MovieList movieData={tempMovieData} />
         <WatchedList watchedMovie={tempWatchedData} />
