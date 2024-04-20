@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { API_KEY } from "../utils/api";
+import "./common.css";
 
 const MovieDetails = ({ selectedId }) => {
-  console.log(selectedId);
+  const [details, setDetails] = useState({});
+
+  useEffect(() => {
+    const details = async () => {
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedId}`
+      );
+      const data = await res.json();
+      setDetails(data);
+    };
+
+    details();
+  }, [selectedId]);
+
+  console.log(details);
   return (
     <div style={{ color: "white" }}>
       <div>

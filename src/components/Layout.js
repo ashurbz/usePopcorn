@@ -43,6 +43,7 @@ const Layout = () => {
 
   useEffect(() => {
     const movieData = async () => {
+      if (query.length < 3) return;
       try {
         setLoader(true);
         setErrorMsg("");
@@ -86,7 +87,7 @@ const Layout = () => {
       <Main>
         {loader && <Loader />}
 
-        {!loader && !errorMsg && (
+        {!loader && !errorMsg && movie && (
           <MovieList movieData={movie} onMovieClick={onMovieClick} />
         )}
         {errorMsg && <ErrorMessage message={errorMsg} />}
