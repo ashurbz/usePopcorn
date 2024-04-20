@@ -77,6 +77,10 @@ const Layout = () => {
     setQuery(value);
   };
 
+  const onClose = () => {
+    setSelectedId(null);
+  };
+
   console.log(movie);
 
   return (
@@ -92,7 +96,7 @@ const Layout = () => {
         )}
         {errorMsg && <ErrorMessage message={errorMsg} />}
         {selectedId ? (
-          <MovieDetails selectedId={selectedId} />
+          <MovieDetails selectedId={selectedId} onClose={onClose} />
         ) : (
           <WatchedList watchedMovie={tempWatchedData} />
         )}
