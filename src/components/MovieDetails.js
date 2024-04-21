@@ -35,6 +35,15 @@ const MovieDetails = ({ selectedId, onClose, addToList, watchedMovie }) => {
     details();
   }, [selectedId]);
 
+  useEffect(() => {
+    if (!details.Title) return;
+    document.title = details.Title;
+
+    return () => {
+      document.title = "usePorpcorn";
+    };
+  }, [details.Title]);
+
   const handleId = () => {
     onClose();
   };

@@ -53,6 +53,7 @@ const Layout = () => {
   };
   const onSearch = (value) => {
     setQuery(value);
+    onClose();
   };
 
   const onClose = () => {
