@@ -20,13 +20,16 @@ const Layout = () => {
   const [watchData, setWatchData] = useState([0]);
 
   useEffect(() => {
+    const connector = new AbortController();
     const movieData = async () => {
       if (query.length < 3) return;
+
       try {
         setLoader(true);
         setErrorMsg("");
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
+          `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`,
+          { signal: connector.signal }
         );
         if (!res.ok) {
           throw new Error("Something went wrong");
@@ -46,6 +49,10 @@ const Layout = () => {
     };
 
     movieData();
+
+    return () => {
+      connector.abort();
+    };
   }, [query]);
 
   const onMovieClick = (id) => {
