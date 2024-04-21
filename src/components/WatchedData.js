@@ -4,16 +4,16 @@ import "./common.css";
 
 const WatchedData = ({ watchedMovie }) => {
   const totalMovie = watchedMovie.length;
-  const userRatingAvg = watchedMovie.reduce((acc, curr) => {
-    return (acc.userRating + curr.userRating) / watchedMovie.length;
+  const userRatingAvg = watchedMovie?.reduce((acc, curr, i, watchedMovie) => {
+    return (acc.userRating + curr.userRating, 0) / watchedMovie.length;
   });
 
-  const imdbAvg = watchedMovie.reduce((acc, curr) => {
-    return (acc.imdbRating + curr.imdbRating) / watchedMovie.length;
+  const imdbAvg = watchedMovie?.reduce((acc, curr, i, watchedMovie) => {
+    return (acc.imdbRating + curr.imdbRating, 0) / watchedMovie.length;
   });
 
-  const runtimeAvg = watchedMovie.reduce((acc, curr) => {
-    return (acc.runtime + curr.runtime) / watchedMovie.length;
+  const runtimeAvg = watchedMovie?.reduce((acc, curr, i, watchedMovie) => {
+    return (acc.runtime + curr.runtime, 0) / watchedMovie.length;
   });
 
   return (

@@ -5,9 +5,22 @@ import Rating from "react-rating-app";
 import "./common.css";
 import Loader from "./Loader";
 
-const MovieDetails = ({ selectedId, onClose }) => {
+const MovieDetails = ({ selectedId, onClose, addToList, watchedMovie }) => {
   const [details, setDetails] = useState({});
   const [loader, setLoader] = useState(false);
+  const [starRating, setStarRating] = useState("");
+
+  const isWatched = watchedMovie
+    .map((movie) => {
+      return movie.imdbID;
+    })
+    .includes(selectedId);
+
+  const showUserRating = watchedMovie.find((movie) => {
+    return movie.imdbID === selectedId;
+  })?.userRating;
+
+  console.log(isWatched);
   useEffect(() => {
     const details = async () => {
       setLoader(true);
@@ -25,8 +38,18 @@ const MovieDetails = ({ selectedId, onClose }) => {
   const handleId = () => {
     onClose();
   };
-
   console.log(details);
+  const handleAddMovie = () => {
+    addToList({
+      imdbID: details.imdbID,
+      Title: details.Title,
+      Poster: details.Poster,
+      Runtime: details.Runtime,
+      imdbRating: Number(details.imdbRating),
+      userRating: Number(starRating),
+    });
+    onClose();
+  };
   return (
     <div style={{ color: "white", padding: "20px" }}>
       {loader && <Loader />}
@@ -49,9 +72,35 @@ const MovieDetails = ({ selectedId, onClose }) => {
             </div>
             <div>{details.imdbRating} Imdb Rating</div>
           </div>
-          <div>
-            <Rating size={24} maxRating={10} />
-          </div>
+          {isWatched && <>You have rated this movie as {showUserRating}</>}
+          {!isWatched && (
+            <>
+              <div>
+                <Rating size={24} maxRating={10} onSetRating={setStarRating} />
+              </div>
+              <div>
+                {starRating > 0 ? (
+                  <button
+                    style={{
+                      padding: "10px",
+                      margin: "20px",
+                      width: "80%",
+                      fontSize: "x-large",
+                      cursor: "pointer",
+                      border: "2px solid red",
+                      borderRadius: "10px",
+                    }}
+                    onClick={handleAddMovie}
+                  >
+                    Add to Wishlist ❤️
+                  </button>
+                ) : (
+                  ""
+                )}
+              </div>
+            </>
+          )}
+
           <p>{details.Plot}</p>
         </div>
       )}

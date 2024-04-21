@@ -7,6 +7,7 @@ const MovieList = ({ movieData, onMovieClick }) => {
   const handleOnClick = () => {
     setIsOpenMovieList(!isOpenMovieList);
   };
+
   return (
     <div>
       <div className={isOpenMovieList ? "movieList_container" : ""}>

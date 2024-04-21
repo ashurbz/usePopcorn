@@ -11,35 +11,13 @@ import Error from "./ErrorMessage";
 import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
 
-const tempWatchedData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-    runtime: 148,
-    imdbRating: 8.8,
-    userRating: 10,
-  },
-  {
-    imdbID: "tt0088763",
-    Title: "Back to the Future",
-    Year: "1985",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    runtime: 116,
-    imdbRating: 8.5,
-    userRating: 9,
-  },
-];
-
 const Layout = () => {
   const [query, setQuery] = useState("");
   const [movie, setMovie] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [loader, setLoader] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [watchData, setWatchData] = useState([0]);
 
   useEffect(() => {
     const movieData = async () => {
@@ -81,7 +59,21 @@ const Layout = () => {
     setSelectedId(null);
   };
 
-  console.log(movie);
+  const addToList = (addMovie) => {
+    setWatchData([...watchData, addMovie]);
+  };
+
+  const onDelete = (id) => {
+    console.log(id);
+    setWatchData(
+      watchData.filter((item) => {
+        console.log(item.imdbID);
+        return item.imdbID !== id;
+      })
+    );
+  };
+
+  console.log(watchData);
 
   return (
     <div className="layout_container">
@@ -96,9 +88,14 @@ const Layout = () => {
         )}
         {errorMsg && <ErrorMessage message={errorMsg} />}
         {selectedId ? (
-          <MovieDetails selectedId={selectedId} onClose={onClose} />
+          <MovieDetails
+            selectedId={selectedId}
+            onClose={onClose}
+            addToList={addToList}
+            watchedMovie={watchData}
+          />
         ) : (
-          <WatchedList watchedMovie={tempWatchedData} />
+          <WatchedList watchedMovie={watchData} onDelete={onDelete} />
         )}
       </Main>
     </div>

@@ -3,7 +3,7 @@ import "./common.css";
 import WatchedData from "./WatchedData";
 import WatchedMovie from "./WatchedMovie";
 
-const WatchedList = ({ watchedMovie }) => {
+const WatchedList = ({ watchedMovie, onDelete }) => {
   const [isOpenWatch, setIsOpenWatch] = useState(true);
   const handleOnCLick = () => {
     setIsOpenWatch(!isOpenWatch);
@@ -23,6 +23,7 @@ const WatchedList = ({ watchedMovie }) => {
               return (
                 <WatchedMovie
                   watchedMovie={watchedMovie}
+                  onDelete={onDelete}
                   key={watchedMovie.imdbID}
                 />
               );
