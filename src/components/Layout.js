@@ -17,7 +17,10 @@ const Layout = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [loader, setLoader] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [watchData, setWatchData] = useState([0]);
+  const [watchData, setWatchData] = useState(() => {
+    const localData = localStorage.getItem("data");
+    return JSON.parse(localData);
+  });
 
   useEffect(() => {
     const connector = new AbortController();
@@ -82,6 +85,10 @@ const Layout = () => {
   };
 
   console.log(watchData);
+
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(watchData));
+  }, [watchData]);
 
   return (
     <div className="layout_container">
